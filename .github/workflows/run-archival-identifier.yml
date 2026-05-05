@@ -1,0 +1,82 @@
+name: Run Archival Identifier
+
+on:
+    workflow_dispatch:
+        inputs:
+            start_date:
+                description: 'Start date for historical data (YYYY-MM-DD) - required, e.g., 2026-01-01'
+                required: true
+                type: string
+            end_date:
+                description: 'End date for historical data (YYYY-MM-DD) - defaults to today if not provided'
+                required: false
+                default: ''
+                type: string
+            org_name:
+                description: 'GitHub organization name'
+                required: false
+                type: string
+                default: 'DSACMS'
+            threshold_time:
+                description: 'Number of days of inactivity to consider for archival (default: 180)'
+                required: false
+                default: '180'
+                type: string
+
+permissions:
+    contents: write
+    pull-requests: write
+    issues: write
+
+jobs:
+    get-history:
+        uses: DSACMS/super-changelog/.github/workflows/get-history.yml@main
+        with:
+            start_date: ${{ inputs.start_date }}
+            end_date: ${{ inputs.end_date }}
+            org_name: ${{ inputs.org_name }}
+        secrets: inherit
+
+    run-archival-identifier:
+        needs: get-history
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout this repository
+              uses: actions/checkout@v4
+
+            - name: Resolve end date
+              id: dates
+              run: |
+                START_DATE="${{ inputs.start_date }}"
+                END_DATE="${{ inputs.end_date }}"
+                if [ -z "$END_DATE" ]; then
+                  END_DATE=$(date +%Y-%m-%d)
+                fi
+                echo "start_date=$START_DATE" >> $GITHUB_OUTPUT
+                echo "end_date=$END_DATE" >> $GITHUB_OUTPUT
+
+            - name: Download historical data from get-history job
+              uses: actions/download-artifact@v4
+              with:
+                name: historical-changelog-${{ steps.dates.outputs.start_date }}-to-${{ steps.dates.outputs.end_date }}
+                path: ./data
+
+            - name: Prepare data for main.py
+              run: |
+                DATA_FILE=$(ls .data/historical-changelog-*.json | head -n 1)
+
+                if [ -z "$DATA_FILE" ]; then
+                  echo "Error: No historical changelog JSON found in the downloaded artifacts."
+                  exit 1
+                fi
+
+                echo "Using data file: $DATA_FILE"
+                cd "$DATA_FILE" ./data.json
+
+            - name: Run archival-identifier action
+              uses: ./.github/actions/action@main
+              with:
+                ORG: ${{ inputs.org_name }}
+                THRESHOLD_TIME: ${{ inputs.threshold_time }}
+                GITHUB_ORG_TOKEN: ${{ secrets.REPOLINTER_AUTO_TOKEN }}
