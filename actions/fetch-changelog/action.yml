@@ -68,7 +68,7 @@ runs:
     - name: Run generate-changelog-historical.py to create data.json
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.github_token }}
+        GH_TOKEN: ${{ inputs.github_token }}
         START_DATE: ${{ steps.dates.outputs.start_date }}
         END_DATE: ${{ steps.dates.outputs.end_date }}
         ORG_NAME: ${{ inputs.org_name }}
