@@ -11,6 +11,10 @@ on:
         required: false
         default: ''
         type: string
+      org_name:
+        description: 'GitHub organization name'
+        required: false
+        default: 'DSACMS'
 
 permissions:
   contents: write
@@ -31,4 +35,5 @@ jobs:
         with:
           START_DATE: ${{ inputs.start_date }}
           END_DATE: ${{ inputs.end_date }}
+          ORG_NAME: ${{ github.event.inputs.org_name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
