@@ -17,6 +17,6 @@ jobs:
           fetch-depth: 0
       - name: Run archival-identifier
         id: archive
-        uses: DinneK/archival-identifier-test-repo@fetch-changelog-action
+        uses: DinneK/archival-identifier-test-repo@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
