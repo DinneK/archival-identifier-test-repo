@@ -73,6 +73,7 @@ runs:
         END_DATE: ${{ steps.dates.outputs.end_date }}
         ORG_NAME: ${{ inputs.org_name }}
       run: |
+        ls
         # cd into super-changelog/scripts so that it can access utils.py
         cd _super_changelog_src/scripts
         python generate-changelog-historical.py
