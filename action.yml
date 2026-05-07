@@ -33,7 +33,7 @@ runs:
       with:
         start_date: ${{ inputs.START_DATE }}
         end_date: ${{ inputs.END_DATE }}
-        org_name: ${{ inputs.ORG }}
+        org_name: ${{ inputs.ORG_NAME }}
         github_token: ${{ inputs.GITHUB_ORG_TOKEN }}
 
     - name: Set up Python
