@@ -1,6 +1,16 @@
 name: Identify repositories for archival
 on:
   workflow_dispatch:
+    inputs:
+      start_date:
+        description: 'Start date (YYYY-MM-DD)'
+        required: true
+        type: string
+      end_date:
+        description: 'End date (YYYY_MM_DD)'
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: write
@@ -19,4 +29,14 @@ jobs:
         id: archive
         uses: DinneK/archival-identifier-test-repo@main
         with:
+          inputs:
+            start_date:
+              description: 'Start date (YYYY-MM-DD)'
+              required: true
+              type: string
+            end_date:
+              description: 'End date (YYYY_MM_DD)'
+              required: false
+              default: ''
+              type: string
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
