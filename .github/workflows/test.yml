@@ -29,14 +29,6 @@ jobs:
         id: archive
         uses: DinneK/archival-identifier-test-repo@main
         with:
-          inputs:
-            start_date:
-              description: 'Start date (YYYY-MM-DD)'
-              required: true
-              type: string
-            end_date:
-              description: 'End date (YYYY_MM_DD)'
-              required: false
-              default: ''
-              type: string
+          START_DATE: ${{ inputs.start_date }}
+          END_DATE: ${{ inputs.end_date }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
