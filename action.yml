@@ -62,7 +62,7 @@ runs:
         THRESHOLD_TIME: ${{ inputs.THRESHOLD_TIME }}
         GITHUB_ORG_TOKEN: ${{ inputs.GITHUB_ORG_TOKEN }}
       run: |
-        python ${{ github.action_path }}/main.py data.json
+        python ${{ github.action_path }}/scripts/main.py data.json
 
     - name: Create issue with archival-identifier results on the repository
       uses: JasonEtco/create-an-issue@v2
