@@ -76,5 +76,5 @@ runs:
       if: always()
       run: |
         rm -f data.json
-        rm -f _super_changelog_src/ 
+        rm -rf _super_changelog_src/ 
         
