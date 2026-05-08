@@ -15,7 +15,11 @@ def generate_markdown_table(stats_list):
     Returns:
         str: Markdown formatted table
     """
-    markdown = "# GitHub Issues Report\n\n"
+    markdown = "---\n"
+    markdown += "title: Archival Candidates Report\n"
+    markdown += "labels: archival, automated\n"
+    markdown += "---\n\n"
+    markdown += "# GitHub Issues Report\n\n"
     markdown += "| Repository | Open Issues | Closed Issues | Open PRs | Merged PRs | Closed PRs | Releases | Commits | Dependants | Criticality Score | Forks | Active Forks | Status |\n"
     markdown += "|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
     
