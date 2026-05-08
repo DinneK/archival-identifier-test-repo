@@ -168,7 +168,7 @@ def main():
         }
 
         # Run OpenSSF Criticality Score
-        dependents_count, criticality_score = get_criticality_score("DSACMS", repo["name"], os.getenv("GITHUB_AUTH_TOKEN"))
+        dependents_count, criticality_score = get_criticality_score("DSACMS", repo["name"], os.getenv("GITHUB_ORG_TOKEN"))
         stats[repo["name"]]["dependents_count"] = dependents_count # dependents_count
         stats[repo["name"]]["criticality_score"] = criticality_score # criticality_score
 
