@@ -87,7 +87,7 @@ runs:
       run: |
         START_DATE="${{ steps.dates.outputs.start_date }}"
         END_DATE="${{ steps.dates.outputs.end_date }}"
-        SRC="_super_changelog_src/scripts/changelog_data/data/historical_changelog_${START_DATE}_to_${END_DATE}.json
+        SRC="_super_changelog_src/scripts/changelog_data/data/historical_changelog_${START_DATE}_to_${END_DATE}.json"
 
         if [ ! -f "$SRC" ]; then
           echo "Error: Expected output file not found at $SRC"
