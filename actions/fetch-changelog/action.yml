@@ -58,6 +58,7 @@ runs:
       with:
         repository: DSACMS/super-changelog
         ref: main
+        path: _super_changelog_src
         token: ${{ inputs.github_token }}
 
     - name: Install dependencies
@@ -76,7 +77,7 @@ runs:
         ls
         pwd
         # cd into super-changelog/scripts so that it can access utils.py
-        cd scripts
+        cd _super_changelog_src/scripts
         ls
         python generate_changelog_historical.py
 
@@ -86,7 +87,7 @@ runs:
       run: |
         START_DATE="${{ steps.dates.outputs.start_date }}"
         END_DATE="${{ steps.dates.outputs.end_date }}"
-        SRC=changelog_data/data/historical_changelog_${START_DATE}_to_${END_DATE}.json
+        SRC="_super_changelog_src/scripts/changelog_data/data/historical_changelog_${START_DATE}_to_${END_DATE}.json
 
         if [ ! -f "$SRC" ]; then
           echo "Error: Expected output file not found at $SRC"
