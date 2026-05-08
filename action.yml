@@ -58,7 +58,7 @@ runs:
       id: identify-archival-candidates
       shell: bash
       env:
-        ORG: ${{ inputs.ORG }}
+        ORG_NAME: ${{ inputs.ORG_NAME }}
         THRESHOLD_TIME: ${{ inputs.THRESHOLD_TIME }}
         GITHUB_ORG_TOKEN: ${{ inputs.GITHUB_ORG_TOKEN }}
       run: |
